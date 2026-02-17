@@ -1,0 +1,123 @@
+.heatmap-wrapper {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  overflow-x: auto;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.legend-label {
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+}
+
+.legend-scale {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-gradient {
+  width: 80px;
+  height: 10px;
+  border-radius: 4px;
+  background: linear-gradient(
+    to right,
+    hsl(0, 70%, 35%),
+    hsl(45, 80%, 45%),
+    hsl(120, 90%, 45%)
+  );
+}
+
+.heatmap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: max-content;
+}
+
+.heatmap--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.heatmap-row {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.heatmap-header {
+  margin-bottom: 2px;
+}
+
+.heatmap-season-label {
+  width: 28px;
+  min-width: 28px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: right;
+  padding-right: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.heatmap-ep-header {
+  width: 22px;
+  min-width: 22px;
+  height: 14px;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.heatmap-cell {
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  transition: transform 0.1s, box-shadow 0.1s;
+  cursor: default;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  position: relative;
+}
+
+.heatmap-cell--empty {
+  background: transparent !important;
+  cursor: default;
+}
+.heatmap-cell--empty:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .heatmap-cell,
+  .heatmap-ep-header {
+    width: 18px;
+    min-width: 18px;
+    height: 18px;
+  }
+}

@@ -1,0 +1,53 @@
+.guess-history {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+}
+
+.guess-history-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.guess-history-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.guess-history-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+}
+
+.item--correct { background: rgba(34,197,94,0.12); }
+.item--wrong   { background: rgba(239,68,68,0.08); }
+
+.guess-history-icon {
+  font-size: 0.75rem;
+  width: 16px;
+  text-align: center;
+}
+.item--correct .guess-history-icon { color: var(--success); }
+.item--wrong   .guess-history-icon { color: var(--danger); }
+
+.guess-history-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.guess-history-num {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}

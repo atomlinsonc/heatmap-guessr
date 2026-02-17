@@ -1,0 +1,72 @@
+.clue-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.clue-panel-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.clue-panel-count {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.clue-section {
+  border-top: 1px solid var(--surface2);
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.clue-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.clue-label {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.clue-value {
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+}
+
+.clue-locked {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0;
+}
+
+.clue-lock-icon {
+  font-size: 0.75rem;
+  opacity: 0.5;
+}
+
+.clue-locked-text {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  font-style: italic;
+}
