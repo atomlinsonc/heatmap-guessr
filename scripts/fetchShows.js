@@ -123,8 +123,16 @@ async function main() {
     process.exit(1);
   }
 
-  const showList = JSON.parse(readFileSync(LIST_PATH, 'utf-8'));
-  console.log(`Fetching ${showList.length} shows from TMDB...`);
+  const rawList = JSON.parse(readFileSync(LIST_PATH, 'utf-8'));
+
+  // Deduplicate by tmdbId — keep first occurrence (which has the primary lead actor)
+  const seen = new Set();
+  const showList = rawList.filter(({ tmdbId }) => {
+    if (seen.has(tmdbId)) return false;
+    seen.add(tmdbId);
+    return true;
+  });
+  console.log(`Fetching ${showList.length} unique shows from TMDB (${rawList.length - showList.length} duplicates removed)...`);
 
   const results = [];
   for (let i = 0; i < showList.length; i++) {

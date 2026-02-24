@@ -30,14 +30,20 @@
 }
 
 .legend-gradient {
-  width: 80px;
+  width: 120px;
   height: 10px;
   border-radius: 4px;
   background: linear-gradient(
     to right,
-    hsl(0, 70%, 35%),
-    hsl(45, 80%, 45%),
-    hsl(120, 90%, 45%)
+    hsl(0,   80%, 28%),
+    hsl(15,  85%, 35%),
+    hsl(35,  90%, 42%),
+    hsl(48,  92%, 46%),
+    hsl(72,  88%, 40%),
+    hsl(90,  85%, 36%),
+    hsl(112, 80%, 32%),
+    hsl(128, 85%, 28%),
+    hsl(145, 90%, 24%)
   );
 }
 

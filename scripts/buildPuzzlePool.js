@@ -5,8 +5,8 @@
  * Transforms raw_shows.json into a curated puzzle_pool.json.
  *
  * Filters shows that have:
- *   - At least 2 seasons
- *   - At least 10 rated episodes
+ *   - At least 1 season (default; mini-series with 1 season allowed)
+ *   - At least 5 rated episodes
  *   - A known premiere year
  *   - A known network
  *
@@ -14,7 +14,7 @@
  *   data/puzzle_pool.json
  *
  * Usage:
- *   node scripts/buildPuzzlePool.js [--min-seasons 2] [--min-episodes 10]
+ *   node scripts/buildPuzzlePool.js [--min-seasons 1] [--min-episodes 5] [--max-pool 500]
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'fs';
@@ -32,9 +32,9 @@ const getArg = (flag, def) => {
   const idx = args.indexOf(flag);
   return idx !== -1 ? parseInt(args[idx + 1], 10) : def;
 };
-const MIN_SEASONS = getArg('--min-seasons', 2);
-const MIN_EPISODES = getArg('--min-episodes', 10);
-const MAX_POOL = getArg('--max-pool', 100);
+const MIN_SEASONS = getArg('--min-seasons', 1);   // allow acclaimed mini-series
+const MIN_EPISODES = getArg('--min-episodes', 5);  // lower bar so limited series qualify
+const MAX_POOL = getArg('--max-pool', 500);         // enough for several years of daily puzzles
 
 function slugify(title) {
   return title
@@ -58,7 +58,7 @@ function filterShow(show) {
   if (show.totalEpisodes < MIN_EPISODES) return false;
   if (!show.heatmap?.seasons?.length) return false;
 
-  // Ensure at least 2 seasons have rated episodes
+  // Ensure enough seasons have rated episodes
   const validSeasons = show.heatmap.seasons.filter((s) => s.episodes.length >= 1);
   if (validSeasons.length < MIN_SEASONS) return false;
 
