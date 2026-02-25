@@ -1,0 +1,70 @@
+.past-game-view {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.past-game-view-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.past-game-back {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.past-game-back:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--surface2);
+}
+
+.past-game-date-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.past-game-error {
+  padding: 2rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Answer reveal strip — shows the answer for past games */
+.past-game-answer-reveal {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  flex-wrap: wrap;
+}
+
+.past-game-answer-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.past-game-answer-value {
+  color: var(--warning);
+  font-weight: 700;
+}
+
+.past-game-answer-hint {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-left: auto;
+}

@@ -1,17 +1,18 @@
 import { Router } from 'express';
-import { getTodaysPuzzle, buildPublicPayload, getDateKey } from '../puzzle.js';
+import { getTodaysPuzzle, buildPublicPayload, getDateKey, selectPuzzle } from '../puzzle.js';
 import { normalizeTitle } from '../normalize.js';
 
 export const guessRouter = Router();
 
 /**
  * POST /api/guess
- * Body: { guess: string, attemptsUsed: number }
+ * Body: { guess: string, attemptsUsed: number, dateKey?: string }
  * Returns: { correct, attemptsUsed, puzzle, answer? }
+ * If dateKey is provided (past game replay), uses that puzzle.
  */
 guessRouter.post('/', (req, res) => {
   try {
-    const { guess, attemptsUsed: prevAttempts } = req.body;
+    const { guess, attemptsUsed: prevAttempts, dateKey: requestedDateKey } = req.body;
 
     if (typeof guess !== 'string' || guess.trim() === '') {
       return res.status(400).json({ error: 'guess is required' });
@@ -20,8 +21,11 @@ guessRouter.post('/', (req, res) => {
       return res.status(400).json({ error: 'attemptsUsed must be 0–4' });
     }
 
-    const puzzle = getTodaysPuzzle();
-    const dateKey = getDateKey();
+    const todayKey = getDateKey();
+    const dateKey = requestedDateKey && /^\d{4}-\d{2}-\d{2}$/.test(requestedDateKey)
+      ? requestedDateKey
+      : todayKey;
+    const puzzle = dateKey === todayKey ? getTodaysPuzzle() : selectPuzzle(dateKey);
     const normalizedGuess = normalizeTitle(guess);
 
     // Build match targets: title + all aliases
@@ -35,7 +39,7 @@ guessRouter.post('/', (req, res) => {
     const response = {
       correct,
       attemptsUsed: newAttempts,
-      dateKey,
+      dateKey: dateKey,
       puzzle: payload,
     };
 

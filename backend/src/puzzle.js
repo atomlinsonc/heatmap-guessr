@@ -50,6 +50,12 @@ export function getTodaysPuzzle() {
   return selectPuzzle(dateKey);
 }
 
+/** Returns fallback if value is null/undefined/empty/'Unknown'/'Various'. */
+function sanitize(val, fallback) {
+  if (!val || val === 'Unknown' || val === 'Various') return fallback;
+  return val;
+}
+
 /**
  * Strips the answer (title) from the public payload.
  * Returns only what the client needs per clue tier.
@@ -71,19 +77,19 @@ export function buildPublicPayload(puzzle, attemptsUsed) {
   }
   if (attemptsUsed >= 2) {
     payload.clues.tier2 = {
-      network: puzzle.network,
+      network: sanitize(puzzle.network, 'Various networks'),
     };
   }
   if (attemptsUsed >= 3) {
     payload.clues.tier3 = {
-      genre: puzzle.genre,
-      status: puzzle.status,
+      genre: sanitize(puzzle.genre, 'Drama'),
+      status: sanitize(puzzle.status, 'Unknown'),
     };
   }
   if (attemptsUsed >= 4) {
     payload.clues.tier4 = {
-      topEpisodeTitle: puzzle.topEpisodeTitle,
-      topEpisodeLead: puzzle.topEpisodeLead,
+      topEpisodeTitle: sanitize(puzzle.topEpisodeTitle, null),
+      topEpisodeLead: sanitize(puzzle.topEpisodeLead, null),
     };
   }
 

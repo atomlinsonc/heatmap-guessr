@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 
-export default function Header({ dateKey }) {
+export default function Header({ dateKey, onPastGames }) {
   return (
     <header className="header">
       <div className="header-logo">
@@ -22,6 +22,11 @@ export default function Header({ dateKey }) {
       <div className="header-meta">
         {dateKey && (
           <span className="header-date">{dateKey}</span>
+        )}
+        {onPastGames && (
+          <button className="header-past-btn" onClick={onPastGames} title="Past Games">
+            📅
+          </button>
         )}
         <a
           className="header-help"

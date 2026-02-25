@@ -51,6 +51,23 @@
   font-variant-numeric: tabular-nums;
 }
 
+.header-past-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface2);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.header-past-btn:hover {
+  background: var(--border);
+}
+
 .header-help {
   width: 28px;
   height: 28px;

@@ -74,8 +74,15 @@ export default function CluePanel({ clues, attemptsUsed }) {
       <div className="clue-section">
         {tier4 ? (
           <>
-            <ClueItem label="Top episode" value={`"${tier4.topEpisodeTitle}"`} />
-            <ClueItem label="Lead actor" value={tier4.topEpisodeLead} />
+            {tier4.topEpisodeTitle && (
+              <ClueItem label="Top episode" value={`"${tier4.topEpisodeTitle}"`} />
+            )}
+            {tier4.topEpisodeLead && (
+              <ClueItem label="Lead actor" value={tier4.topEpisodeLead} />
+            )}
+            {!tier4.topEpisodeTitle && !tier4.topEpisodeLead && (
+              <ClueItem label="Note" value="Top episode data unavailable" />
+            )}
           </>
         ) : (
           <LockedClue labels={TIER_LABELS.tier4} />

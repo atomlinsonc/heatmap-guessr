@@ -351,6 +351,47 @@ async function main() {
     'Narcos (alt)':                 'tt4834206',
   };
 
+  // Network lookup by IMDB tconst
+  const NETWORK_MAP = {
+    'tt0903747': 'AMC', 'tt0141842': 'HBO', 'tt0306414': 'HBO', 'tt0944947': 'HBO',
+    'tt0386676': 'NBC', 'tt3032476': 'AMC', 'tt7366338': 'HBO', 'tt0185906': 'HBO',
+    'tt2356777': 'HBO', 'tt2802850': 'FX', 'tt1190634': 'Prime Video', 'tt8111088': 'Disney+',
+    'tt4574334': 'Netflix', 'tt10919420': 'Netflix', 'tt7660850': 'HBO', 'tt5687612': 'BBC Three',
+    'tt1475582': 'BBC One', 'tt2085059': 'Netflix', 'tt11280740': 'Apple TV+', 'tt13406094': 'HBO',
+    'tt8772296': 'HBO', 'tt10574236': 'HBO Max', 'tt5071412': 'Netflix', 'tt2442560': 'BBC One',
+    'tt0475784': 'HBO', 'tt0098936': 'ABC', 'tt2149175': 'FX', 'tt0804503': 'AMC',
+    'tt0411008': 'ABC', 'tt0286486': 'FX', 'tt0412142': 'Fox', 'tt0773262': 'Showtime',
+    'tt0487831': 'Channel 4', 'tt0367279': 'Fox', 'tt3398228': 'Netflix', 'tt2861424': 'Adult Swim',
+    'tt4288182': 'FX', 'tt2575988': 'HBO', 'tt1840309': 'HBO', 'tt5348176': 'HBO',
+    'tt10986410': 'Apple TV+', 'tt3581920': 'HBO', 'tt9253284': 'Disney+', 'tt4786824': 'Netflix',
+    'tt14452776': 'FX', 'tt14218830': 'ABC', 'tt7908628': 'FX', 'tt11691774': 'Hulu',
+    'tt6468322': 'Netflix', 'tt4158110': 'USA Network', 'tt0106179': 'Fox', 'tt0285331': 'Fox',
+    'tt0108778': 'NBC', 'tt2378794': 'FX', 'tt5742374': 'Netflix', 'tt4834206': 'Netflix',
+    'tt0979432': 'HBO', 'tt4270492': 'Showtime', 'tt0436992': 'BBC One', 'tt4236770': 'Paramount+',
+    'tt11126994': 'Netflix', 'tt6741278': 'Prime Video', 'tt11198330': 'HBO', 'tt14688458': 'Apple TV+',
+    'tt7772588': 'Apple TV+', 'tt5875444': 'Apple TV+', 'tt13452152': 'Apple TV+', 'tt21064584': 'Netflix',
+    'tt5788792': 'Prime Video', 'tt11815682': 'HBO Max', 'tt0813715': 'NBC', 'tt1839578': 'CBS',
+    'tt0369179': 'CBS', 'tt2741602': 'NBC', 'tt1699816': 'AMC', 'tt8714904': 'Netflix',
+    'tt0212671': 'Fox', 'tt8740790': 'Netflix', 'tt3107288': 'The CW', 'tt0840871': 'E4',
+    'tt15441476': 'HBO', 'tt7631058': 'Prime Video', 'tt14283626': 'Netflix', 'tt7016936': 'BBC America',
+    'tt1474684': 'BBC One', 'tt2294189': 'BBC Two', 'tt0844441': 'HBO', 'tt1796960': 'Showtime',
+    'tt1856010': 'Netflix', 'tt1586680': 'Showtime', 'tt7049682': 'HBO', 'tt0374463': 'HBO',
+    'tt5753856': 'Netflix', 'tt2234222': 'BBC America', 'tt1844624': 'FX', 'tt1442462': 'CBS',
+    'tt2188671': 'A&E', 'tt0496424': 'NBC', 'tt0472954': 'FX', 'tt0445114': 'BBC Two',
+    'tt4192812': 'FX', 'tt3920596': 'HBO', 'tt1606375': 'ITV', 'tt2699128': 'HBO',
+    'tt1870479': 'HBO', 'tt3428912': 'BBC One', 'tt3205802': 'ABC', 'tt1312171': 'Netflix',
+    'tt8428358': 'HBO', 'tt10016180': 'HBO', 'tt7077540': 'HBO', 'tt8550800': 'HBO',
+    'tt1520211': 'AMC', 'tt1489428': 'FX', 'tt3322312': 'Netflix', 'tt2357547': 'Netflix',
+    'tt5675620': 'Netflix', 'tt3322314': 'Netflix', 'tt2401256': 'HBO', 'tt0413573': 'ABC',
+    'tt0203259': 'NBC', 'tt0108202': 'NBC', 'tt5580236': 'Netflix', 'tt13276196': 'Apple TV+',
+    'tt2193021': 'The CW', 'tt7604414': 'HBO', 'tt3592518': 'HBO', 'tt13015506': 'Prime Video',
+    'tt1086765': 'HBO', 'tt1190082': 'Showtime', 'tt0914387': 'FX', 'tt10334042': 'FX',
+    'tt21064780': 'FX', 'tt9174558': 'HBO', 'tt7817340': 'NBC', 'tt1837642': 'ABC',
+    'tt2071645': 'Fox', 'tt7049682': 'HBO', 'tt4122068': 'Channel 4', 'tt1219024': 'ABC',
+    'tt0115308': 'ABC', 'tt0851851': 'Fox', 'tt3766354': 'Fox', 'tt4052886': 'Netflix',
+    'tt0397442': 'HBO', 'tt3501074': 'CBS', 'tt3398228': 'Netflix', 'tt13406094': 'HBO',
+  };
+
   // Build reverse map: IMDB tconst → leadActor from our show list
   const tconstToLead = new Map();
   const noteToLead = new Map();
@@ -400,22 +441,20 @@ async function main() {
 
     const status = series.endYear ? 'Ended' : 'Ongoing';
     const genre = series.genres[0] || 'Drama';
-    const leadActor = show.leadActor || 'Unknown';
+    const leadActor = show.leadActor || null;
 
-    // Guess network from show list note (we don't have it from IMDB easily)
-    // Will be filled as "Unknown" — acceptable fallback
     poolMap.set(tconst, {
       id: slugify(series.title),
       title: series.title,
       aliases: [series.title.toLowerCase(), series.originalTitle?.toLowerCase()].filter(Boolean),
       premiereYear: series.startYear,
       runtimeBucket: runtimeBucket(series.runtime),
-      network: 'Various',  // IMDB doesn't include network in bulk data
+      network: NETWORK_MAP[tconst] || null,
       genre,
       status,
       totalSeasons: heatmapSeasons.length,
       totalEpisodes,
-      topEpisodeTitle: topEpTitle || 'Unknown',
+      topEpisodeTitle: null,
       topEpisodeLead: leadActor,
       imdbRating: series.rating,
       imdbVotes: series.votes,
@@ -426,12 +465,12 @@ async function main() {
   // Also grab top-voted TV series not in our list (bonus shows for pool depth)
   console.log('  Adding bonus high-vote series not in curated list...');
   const bonusShows = [...seriesById.values()]
-    .filter(s => s.votes >= 50000 && s.seasons.size >= 1 && !poolMap.has(s.tconst))
+    .filter(s => s.votes >= 10000 && s.seasons.size >= 1 && !poolMap.has(s.tconst))
     .sort((a, b) => b.votes - a.votes)
-    .slice(0, 400); // top 400 bonus
+    .slice(0, 1200); // top 1200 bonus
 
   for (const series of bonusShows) {
-    if (poolMap.size >= 500) break;
+    if (poolMap.size >= 1200) break;
     if (!series.seasons.size) continue;
 
     const heatmapSeasons = [];
@@ -454,13 +493,13 @@ async function main() {
       aliases: [series.title.toLowerCase(), series.originalTitle?.toLowerCase()].filter(Boolean),
       premiereYear: series.startYear,
       runtimeBucket: runtimeBucket(series.runtime),
-      network: 'Various',
+      network: NETWORK_MAP[series.tconst] || null,
       genre: series.genres[0] || 'Drama',
       status: series.endYear ? 'Ended' : 'Ongoing',
       totalSeasons: heatmapSeasons.length,
       totalEpisodes,
-      topEpisodeTitle: 'Unknown',
-      topEpisodeLead: 'Unknown',
+      topEpisodeTitle: null,
+      topEpisodeLead: null,
       imdbRating: series.rating,
       imdbVotes: series.votes,
       heatmap: { seasons: heatmapSeasons },
