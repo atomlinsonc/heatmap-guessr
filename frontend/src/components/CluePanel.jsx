@@ -53,7 +53,7 @@ export default function CluePanel({ clues, attemptsUsed }) {
         {tier4
           ? tier4.leadActor
             ? <ClueItem label="Lead actor" value={tier4.leadActor} />
-            : <ClueItem label="Lead actor" value="Not available" />
+            : null
           : <LockedClue label="Lead actor" />}
       </div>
 
@@ -61,7 +61,7 @@ export default function CluePanel({ clues, attemptsUsed }) {
         {tier5
           ? tier5.tagline
             ? <ClueItem label="Tagline" value={`"${tier5.tagline}"`} />
-            : <ClueItem label="Tagline" value="Not available" />
+            : null
           : <LockedClue label="Tagline" />}
       </div>
     </div>
