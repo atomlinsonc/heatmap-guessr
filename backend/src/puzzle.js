@@ -69,28 +69,21 @@ export function buildPublicPayload(puzzle, attemptsUsed) {
     clues: {},
   };
 
+  // 5 individual clues, one unlocked per wrong guess
   if (attemptsUsed >= 1) {
-    payload.clues.tier1 = {
-      premiereYear: puzzle.premiereYear,
-      runtimeBucket: puzzle.runtimeBucket,
-    };
+    payload.clues.tier1 = { premiereYear: puzzle.premiereYear };
   }
   if (attemptsUsed >= 2) {
-    payload.clues.tier2 = {
-      network: sanitize(puzzle.network, 'Various networks'),
-    };
+    payload.clues.tier2 = { runtimeBucket: puzzle.runtimeBucket };
   }
   if (attemptsUsed >= 3) {
-    payload.clues.tier3 = {
-      genre: sanitize(puzzle.genre, 'Drama'),
-      status: sanitize(puzzle.status, 'Unknown'),
-    };
+    payload.clues.tier3 = { genre: sanitize(puzzle.genre, 'Drama') };
   }
   if (attemptsUsed >= 4) {
-    payload.clues.tier4 = {
-      topEpisodeTitle: sanitize(puzzle.topEpisodeTitle, null),
-      topEpisodeLead: sanitize(puzzle.topEpisodeLead, null),
-    };
+    payload.clues.tier4 = { leadActor: sanitize(puzzle.topEpisodeLead, null) };
+  }
+  if (attemptsUsed >= 5) {
+    payload.clues.tier5 = { tagline: sanitize(puzzle.tagline, null) };
   }
 
   return payload;

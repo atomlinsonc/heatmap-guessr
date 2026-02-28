@@ -1,13 +1,6 @@
 import React from 'react';
 import './CluePanel.css';
 
-const TIER_LABELS = {
-  tier1: ['Premiere year', 'Runtime'],
-  tier2: ['Network / Streamer'],
-  tier3: ['Genre', 'Status'],
-  tier4: ['Top episode', 'Lead actor'],
-};
-
 function ClueItem({ label, value }) {
   return (
     <div className="clue-item">
@@ -17,17 +10,17 @@ function ClueItem({ label, value }) {
   );
 }
 
-function LockedClue({ labels }) {
+function LockedClue({ label }) {
   return (
     <div className="clue-locked">
       <span className="clue-lock-icon" aria-hidden="true">🔒</span>
-      <span className="clue-locked-text">{labels.join(' & ')} — guess to unlock</span>
+      <span className="clue-locked-text">{label} — guess to unlock</span>
     </div>
   );
 }
 
 export default function CluePanel({ clues, attemptsUsed }) {
-  const { tier1, tier2, tier3, tier4 } = clues;
+  const { tier1, tier2, tier3, tier4, tier5 } = clues;
 
   return (
     <div className="clue-panel">
@@ -39,54 +32,37 @@ export default function CluePanel({ clues, attemptsUsed }) {
       </h2>
 
       <div className="clue-section">
-        {tier1 ? (
-          <>
-            <ClueItem label="Premiere year" value={tier1.premiereYear} />
-            <ClueItem label="Runtime" value={tier1.runtimeBucket} />
-          </>
-        ) : (
-          <LockedClue labels={TIER_LABELS.tier1} />
-        )}
+        {tier1
+          ? <ClueItem label="Premiere year" value={tier1.premiereYear} />
+          : <LockedClue label="Premiere year" />}
       </div>
 
       <div className="clue-section">
-        {tier2 ? (
-          <ClueItem label="Network / Streamer" value={tier2.network} />
-        ) : (
-          <LockedClue labels={TIER_LABELS.tier2} />
-        )}
+        {tier2
+          ? <ClueItem label="Runtime" value={tier2.runtimeBucket} />
+          : <LockedClue label="Runtime" />}
       </div>
 
       <div className="clue-section">
-        {tier3 ? (
-          <>
-            <ClueItem label="Genre" value={tier3.genre} />
-            <ClueItem
-              label="Status"
-              value={`${tier3.status}`}
-            />
-          </>
-        ) : (
-          <LockedClue labels={TIER_LABELS.tier3} />
-        )}
+        {tier3
+          ? <ClueItem label="Genre" value={tier3.genre} />
+          : <LockedClue label="Genre" />}
       </div>
 
       <div className="clue-section">
-        {tier4 ? (
-          <>
-            {tier4.topEpisodeTitle && (
-              <ClueItem label="Top episode" value={`"${tier4.topEpisodeTitle}"`} />
-            )}
-            {tier4.topEpisodeLead && (
-              <ClueItem label="Lead actor" value={tier4.topEpisodeLead} />
-            )}
-            {!tier4.topEpisodeTitle && !tier4.topEpisodeLead && (
-              <ClueItem label="Note" value="Top episode data unavailable" />
-            )}
-          </>
-        ) : (
-          <LockedClue labels={TIER_LABELS.tier4} />
-        )}
+        {tier4
+          ? tier4.leadActor
+            ? <ClueItem label="Lead actor" value={tier4.leadActor} />
+            : <ClueItem label="Lead actor" value="Not available" />
+          : <LockedClue label="Lead actor" />}
+      </div>
+
+      <div className="clue-section">
+        {tier5
+          ? tier5.tagline
+            ? <ClueItem label="Tagline" value={`"${tier5.tagline}"`} />
+            : <ClueItem label="Tagline" value="Not available" />
+          : <LockedClue label="Tagline" />}
       </div>
     </div>
   );

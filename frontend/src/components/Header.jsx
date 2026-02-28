@@ -55,11 +55,11 @@ export default function Header({ dateKey, onPastGames }) {
           </ul>
           <h3>Clue order</h3>
           <ol>
-            <li>Premiere year &amp; runtime</li>
-            <li>Network / streamer</li>
-            <li>Genre &amp; status</li>
-            <li>Highest-rated episode title &amp; lead actor</li>
-            <li>Answer revealed</li>
+            <li>Premiere year</li>
+            <li>Runtime</li>
+            <li>Genre</li>
+            <li>Lead actor</li>
+            <li>Tagline</li>
           </ol>
           <button className="btn-primary" onClick={() => {
             document.getElementById('how-to-play-dialog')?.close();
