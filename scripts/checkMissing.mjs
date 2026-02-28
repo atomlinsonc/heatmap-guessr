@@ -1,0 +1,15 @@
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const pool = JSON.parse(readFileSync(join(__dirname, '../data/puzzle_pool.json'), 'utf-8'));
+const missingLead = pool.filter(s => !s.topEpisodeLead);
+const missingTag = pool.filter(s => !s.tagline);
+console.log('Missing lead actor:', missingLead.length);
+console.log('Missing tagline:', missingTag.length);
+console.log('');
+console.log('--- Missing LEAD ACTOR ---');
+missingLead.sort((a,b)=>b.imdbVotes-a.imdbVotes).forEach(s => console.log(s.imdbVotes?.toLocaleString().padStart(10), JSON.stringify(s.id), s.title));
+console.log('');
+console.log('--- Missing TAGLINE ---');
+missingTag.sort((a,b)=>b.imdbVotes-a.imdbVotes).forEach(s => console.log(s.imdbVotes?.toLocaleString().padStart(10), JSON.stringify(s.id), s.title));

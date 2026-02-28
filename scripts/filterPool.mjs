@@ -29,6 +29,8 @@ const KOREAN = new Set([
   'business-proposal', 'when-life-gives-you-tangerines', 'queen-of-tears',
   'the-brothers-sun', 'ncr-days', 'guardian-the-lonely-and-great-god',
   'it-s-okay-to-not-be-okay', 'sweet-home', 'signal',
+  'king-the-land', 'when-the-phone-rings', 'heated-rivalry',
+  'all-her-fault',
 ]);
 
 // Indian shows (made for Indian audiences, not widely known in US)
@@ -37,6 +39,12 @@ const INDIAN = new Set([
   'yeh-meri-family', 'mumbai-diaries', 'delhi-crime', 'gullak', 'college-romance',
   'heeramandi-the-diamond-bazaar', 'the-great-indian-kapil-show', 'special-ops',
   'flames', 'ncr-days',
+  // Additional Indian shows discovered in second pass
+  'aspirants', 'dhindora', 'sacred-games', 'mirzapur', 'kota-factory',
+  'sandeep-bhaiya', 'tvf-pitchers', 'paatal-lok', 'sapne-vs-everyone',
+  'aashram', 'indian-police-force', 'tandav', 'farzi', 'four-more-shots-please',
+  'asur-welcome-to-your-dark-side', 'taaza-khabar', 'chamak',
+  'the-ba-ds-of-bollywood',
 ]);
 
 // Turkish shows
@@ -44,6 +52,7 @@ const TURKISH = new Set([
   'love-is-in-the-air', 'another-self', 'another-love', 'halka', 'ethos',
   'the-protector', 'resurrection-ertugrul', 'ezel',
   'behzat-an-ankara-detective-story', 'rise-of-empires-ottoman',
+  'love-doesn-t-understand-words', 'his-hers',
 ]);
 
 // Other non-English regional content not widely known in US
@@ -65,17 +74,41 @@ const OTHER_FOREIGN = new Set([
   'quicksand',        // Swedish
   'locked-up',        // Spanish ("Vis a Vis")
   'the-mechanism',    // Brazilian (Portuguese)
-  'house-of-guinness',// Irish (reality, not well-known)
+  'house-of-guinness',// Irish (reality)
   'workin-moms',      // Canadian (niche)
   'kim-s-convenience',// Canadian (limited US following)
   '3',                // Brazilian ("3%")
-  'all-her-fault',    // Korean thriller
+  // Additional foreign shows discovered in second pass
+  'elite',            // Spanish Netflix teen drama
+  'the-innocent',     // Spanish thriller
+  'the-chestnut-man', // Danish crime
+  'ragnarok',         // Norwegian Netflix
+  'young-royals',     // Swedish Netflix
+  'how-to-sell-drugs-online-fast', // German Netflix
+  'berlin',           // German (Money Heist spin-off)
+  'the-bridge',       // Swedish/Danish original (2011)
+  'paranormal',       // Egyptian Netflix
+  'untamed',          // Chinese drama ("The Untamed")
+  'the-heroes',       // Unknown non-US animation (2008)
+  'pluribus',         // Unknown/unverifiable 2025 show
+  'heated-rivalry',   // Foreign drama (2025)
+  'persona',          // Korean Netflix anthology (2018)
+  'the-frog',         // Foreign crime (2020)
+  'the-beast-in-me',  // Unverifiable foreign drama (2025)
+  'task',             // Unverifiable foreign show (2025)
+  'as-if',            // Foreign comedy (possibly Israeli/Turkish)
+  'dept-q',           // Danish crime series (2025)
+  'leyla-and-mecnun', // Turkish comedy-drama (2011)
+  'the-rain',         // Danish post-apocalyptic (2018)
 ]);
 
 // Anime not mainstream enough to be recognized by general US audiences
 // (Keeping iconic ones: DBZ, Naruto, AOT, Death Note, One Piece, FMA:B,
 //  Demon Slayer, Jujutsu Kaisen, HxH, My Hero Academia, Bleach, Steins;Gate,
-//  Vinland Saga, Tokyo Ghoul, FMA original, SAO, Parasyte, Promised Neverland)
+//  Vinland Saga, Tokyo Ghoul, FMA original, SAO, Parasyte, Promised Neverland,
+//  Code Geass, Neon Genesis Evangelion, Berserk, Samurai Champloo, Erased,
+//  Mob Psycho 100, JoJo's, Spy x Family, Haikyu, Frieren, Chainsaw Man,
+//  Dragon Ball Super, Bleach TYBW, Solo Leveling, Dandadan)
 const NICHE_ANIME = new Set([
   'your-lie-in-april',
   'black-clover',
